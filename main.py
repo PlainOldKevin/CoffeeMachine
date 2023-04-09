@@ -29,3 +29,16 @@ resources = {
     "milk": 200,
     "coffee": 100,
 }
+
+# Bool to terminate program
+machine_off = False
+
+# TODO Prompt User
+while machine_off == False:
+    # Get input
+    user_input = input("What would you like? (espresso/latte/cappuccino):")
+
+    # TODO Shut down machine upon request
+    if user_input == "off":
+        print("------ *MACHINE POWERING DOWN* ------")
+        quit()
