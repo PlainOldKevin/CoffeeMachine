@@ -25,9 +25,10 @@ MENU = {
 }
 
 resources = {
-    "water": 300,
-    "milk": 200,
-    "coffee": 100,
+    "Water": 500,
+    "Milk": 400,
+    "Coffee": 150,
+    "Money": 0.00
 }
 
 # Bool to terminate program
@@ -36,9 +37,22 @@ machine_off = False
 # TODO Prompt User
 while machine_off == False:
     # Get input
-    user_input = input("What would you like? (espresso/latte/cappuccino):")
+    user_input = input("What would you like? (espresso/latte/cappuccino): ")
 
     # TODO Shut down machine upon request
     if user_input == "off":
-        print("------ *MACHINE POWERING DOWN* ------")
+        print("\n------ *MACHINE POWERING DOWN* ------\n")
         quit()
+
+    # TODO Print report upon request
+    if user_input == "report":
+        # Print table
+        for k, v in resources.items():
+            resource = k
+            supply = v
+            # If statements for different units
+            if k == "Water" or "Milk":
+                print(k + ":", str(v) + "mL")
+            # TODO fix this printing mL for eveything instead of intended
+            elif k == "Coffee":
+                print(k + ":", str(v) + "g")
