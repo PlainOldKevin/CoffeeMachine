@@ -31,6 +31,11 @@ resources = {
     "Money": 0.00
 }
 
+# Function to power down machine
+def power_down():
+    print("\n------ *MACHINE POWERING DOWN* ------\n")
+    quit()
+
 # Function to print report for machine
 def print_report():
     # Print table
@@ -135,8 +140,7 @@ while machine_off == False:
 
     # Shut down machine upon request
     if user_input == "off":
-        print("\n------ *MACHINE POWERING DOWN* ------\n")
-        quit()
+        power_down()
 
     # Print report upon request
     if user_input == "report":
