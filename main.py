@@ -34,25 +34,30 @@ resources = {
 # Bool to terminate program
 machine_off = False
 
-# TODO Prompt User
+# Prompt User
 while machine_off == False:
     # Get input
     user_input = input("What would you like? (espresso/latte/cappuccino): ")
 
-    # TODO Shut down machine upon request
+    # Shut down machine upon request
     if user_input == "off":
         print("\n------ *MACHINE POWERING DOWN* ------\n")
         quit()
 
-    # TODO Print report upon request
+    # Print report upon request
     if user_input == "report":
         # Print table
         for k, v in resources.items():
             resource = k
             supply = v
             # If statements for different units
-            if k == "Water" or "Milk":
+            if k == "Water":
                 print(k + ":", str(v) + "mL")
-            # TODO fix this printing mL for eveything instead of intended
+            elif k == "Milk":
+                print(k + ":", str(v) + "mL")
             elif k == "Coffee":
                 print(k + ":", str(v) + "g")
+            else:
+                print(k + ":", "$" + str("{:.2f}".format(v)))
+
+    # TODO Check if resources are sufficient
