@@ -1,3 +1,7 @@
+# Imports
+import os
+
+
 MENU = {
     "espresso": {
         "ingredients": {
@@ -130,6 +134,21 @@ def check_resources(input):
             print("\nSorry, there is not enough water and coffee in the machine to make your capuccino.")
             print("Please contact the vending manager to refill machine.\n")
 
+# Check if drink input valid
+def input_valid(drink):
+    if drink == 'espresso':
+        return True
+    elif drink == 'latte':
+        return True
+    elif drink == 'capuccino':
+        return True
+    elif drink == 'off':
+        power_down()
+    elif drink == 'report':
+        return True
+    else:
+        return False
+
 # Bool to terminate program
 machine_off = False
 
@@ -138,9 +157,11 @@ while machine_off == False:
     # Get input
     user_input = input("What would you like? (espresso/latte/cappuccino): ")
 
-    # Shut down machine upon request
-    if user_input == "off":
-        power_down()
+    # Check input
+    while input_valid(user_input) == False:
+        print("Invalid Input. Try again.")
+        print("What would you like? (espresso/latte/cappuccino): ")
+        
 
     # Print report upon request
     if user_input == "report":
@@ -149,4 +170,6 @@ while machine_off == False:
     # Check if resources are sufficient
     check_resources(user_input)
 
-
+    # Process Coins
+    # Prompt User
+    ("Your " + user_input + " costs ")
