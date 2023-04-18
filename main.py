@@ -146,7 +146,9 @@ def input_valid(drink):
     elif drink == 'off':
         power_down()
     elif drink == 'report':
-        return True
+        return False
+    elif drink == 'refill':
+        return False
     else:
         return False
 
@@ -165,6 +167,12 @@ def process_coins(drink, q, d, n, p):
     else:
         print("\nTransaction successful. No change will be dispensed.\n")
 
+# Function to refill the machine's ingredients
+def refill():
+    print("Ingredients filled to maximum capacity.")
+    resources["Coffee"] == 150
+    resources["Water"] == 500
+    resources["Milk"] == 400
 
 # Bool to terminate program
 machine_off = False
@@ -176,13 +184,22 @@ while machine_off == False:
 
     # Check input
     while input_valid(user_input) == False:
-        print("Invalid Input. Try again.")
-        user_input = input("What would you like? (espresso/latte/cappuccino): ")
+        # Print report
+        if user_input == 'report':
+            print_report()
+            user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
+            input_valid(user_input)
+        # Refill machine
+        elif user_input == 'refill':
+            refill()
+            user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
+            input_valid(user_input)
+        # Bad input
+        else:
+            print("Invalid input. Try again.")
+            user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
+            input_valid(user_input)
 
-    # Check if input is report
-    while user_input == 'report':
-        print_report()
-        user_input = input("What would you like? (espresso/latte/cappuccino): ")
 
     # Check if resources are sufficient
     check_resources(user_input)
