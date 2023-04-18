@@ -104,35 +104,35 @@ def check_resources(input):
         elif resources["Coffee"] < MENU["latte"]["ingredients"]["coffee"]:
             print("\nSorry, there is not enough water and coffee in the machine to make your latte.")
             print("Please contact the vending manager to refill machine.\n")
-    elif input == "capuccino":
+    elif input == "cappuccino":
         # Water, Coffee, Milk
-        if resources["Water"] < MENU["capuccino"]["ingredients"]["water"] and resources["Coffee"] < MENU["capuccino"]["ingredients"]["coffee"] and resources["Milk"] < MENU["capuccino"]["ingredients"]["milk"]:
+        if resources["Water"] < MENU["cappuccino"]["ingredients"]["water"] and resources["Coffee"] < MENU["cappuccino"]["ingredients"]["coffee"] and resources["Milk"] < MENU["cappuccino"]["ingredients"]["milk"]:
             # Error message
-            print("\nSorry, there is not enough water, coffee, and milk in the machine to make your capuccino.")
+            print("\nSorry, there is not enough water, coffee, and milk in the machine to make your cappuccino.")
             print("Please contact the vending manager to refill machine.\n")
         # Water and milk
-        elif resources["Water"] < MENU["capuccino"]["ingredients"]["water"] and resources["Milk"] < MENU["capuccino"]["ingredients"]["milk"]:
-            print("\nSorry, there is not enough water and milk in the machine to make your capuccino.")
+        elif resources["Water"] < MENU["cappuccino"]["ingredients"]["water"] and resources["Milk"] < MENU["cappuccino"]["ingredients"]["milk"]:
+            print("\nSorry, there is not enough water and milk in the machine to make your cappuccino.")
             print("Please contact the vending manager to refill machine.\n")
         # Water and coffee
-        elif resources["Water"] < MENU["capuccino"]["ingredients"]["water"] and resources["Coffee"] < MENU["capuccino"]["ingredients"]["coffee"]:
-            print("\nSorry, there is not enough water and coffee in the machine to make your capuccino.")
+        elif resources["Water"] < MENU["cappuccino"]["ingredients"]["water"] and resources["Coffee"] < MENU["cappuccino"]["ingredients"]["coffee"]:
+            print("\nSorry, there is not enough water and coffee in the machine to make your cappuccino.")
             print("Please contact the vending manager to refill machine.\n")
         # Milk and coffee
-        elif resources["Milk"] < MENU["capuccino"]["ingredients"]["milk"] and resources["Coffee"] < MENU["capuccino"]["ingredients"]["coffee"]:
-            print("\nSorry, there is not enough milk and coffee in the machine to make your capuccino.")
+        elif resources["Milk"] < MENU["cappuccino"]["ingredients"]["milk"] and resources["Coffee"] < MENU["cappuccino"]["ingredients"]["coffee"]:
+            print("\nSorry, there is not enough milk and coffee in the machine to make your cappuccino.")
             print("Please contact the vending manager to refill machine.\n")
         # Water
-        elif resources["Water"] < MENU["capuccino"]["ingredients"]["water"]:
-            print("\nSorry, there is not enough water in the machine to make your capuccino.")
+        elif resources["Water"] < MENU["cappuccino"]["ingredients"]["water"]:
+            print("\nSorry, there is not enough water in the machine to make your cappuccino.")
             print("Please contact the vending manager to refill machine.\n")
         # Milk
-        elif resources["Milk"] < MENU["capuccino"]["ingredients"]["milk"]:
-            print("\nSorry, there is not enough water and milk in the machine to make your capuccino.")
+        elif resources["Milk"] < MENU["cappuccino"]["ingredients"]["milk"]:
+            print("\nSorry, there is not enough water and milk in the machine to make your cappuccino.")
             print("Please contact the vending manager to refill machine.\n")
         # Coffee
-        elif resources["Coffee"] < MENU["capuccino"]["ingredients"]["coffee"]:
-            print("\nSorry, there is not enough water and coffee in the machine to make your capuccino.")
+        elif resources["Coffee"] < MENU["cappuccino"]["ingredients"]["coffee"]:
+            print("\nSorry, there is not enough water and coffee in the machine to make your cappuccino.")
             print("Please contact the vending manager to refill machine.\n")
 
 # Check if drink input valid
@@ -141,7 +141,7 @@ def input_valid(drink):
         return True
     elif drink == 'latte':
         return True
-    elif drink == 'capuccino':
+    elif drink == 'cappuccino':
         return True
     elif drink == 'off':
         power_down()
@@ -162,7 +162,7 @@ def process_coins(drink, q, d, n, p):
         quit()
     elif MENU[drink]["cost"] < money:
         print("\nTransaction successful.")
-        print("Your change is $" + str(abs(round(change, 2))) + ". Have a nice day.\n")
+        print("Your change is $" + str(round(change, 2)) + ". Have a nice day.\n")
         resources["Money"] += MENU[drink]["cost"]
     else:
         print("\nTransaction successful. No change will be dispensed.\n")
@@ -173,6 +173,18 @@ def refill():
     resources["Coffee"] == 150
     resources["Water"] == 500
     resources["Milk"] == 400
+
+# TODO finish this function for each coin
+
+# Function to insert quarters into machine
+def insert_quarters():
+    quarters = int(input("Insert quarters into the machine: "))
+    while quarters <= 0 or not isinstance(quarters, int):
+        print("Invalid input. Try again.")
+        quarters = int(input("Insert quarters into the machine: "))
+    return quarters
+
+
 
 # Bool to terminate program
 machine_off = False
@@ -200,19 +212,20 @@ while machine_off == False:
             user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
             input_valid(user_input)
 
-
     # Check if resources are sufficient
     check_resources(user_input)
 
     # Prompt user for coins
-    if user_input == 'espresso' or 'latte' or 'capuccino':
-        print("Your " + user_input + " costs $" + str(round(MENU[user_input]["cost"], 2)) + ".")
+    if user_input == 'espresso' or 'latte' or 'cappuccino':
+        print("Your " + user_input + " costs $" + str("{:.2f}".format(MENU[user_input]["cost"])) + ".") 
 
     # Insert coins
-    q = int(input("Insert quarters into the machine: "))
+    q = insert_quarters()
     d = int(input("Insert dimes into the machine: "))
     n = int(input("Insert nickels into the machine: "))
     p = int(input("Insert pennies into the machine: "))
 
     # Process the coins to proceed
     process_coins(user_input, q, d, n, p)
+
+    # TODO Deduct coffee machine resources depending on drink of choice
