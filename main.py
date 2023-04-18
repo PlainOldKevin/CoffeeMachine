@@ -42,19 +42,20 @@ def power_down():
 
 # Function to print report for machine
 def print_report():
+    # Header and new line bc it looks pretty
+    print("\nRESOURCE-REPORT:")
     # Print table
-        for k, v in resources.items():
-            resource = k
-            supply = v
-            # If statements for different units
-            if k == "Water":
-                print(k + ":", str(v) + "mL")
-            elif k == "Milk":
-                print(k + ":", str(v) + "mL")
-            elif k == "Coffee":
-                print(k + ":", str(v) + "g")
-            else:
-                print(k + ":", "$" + str("{:.2f}".format(v)))
+    for k, v in resources.items():
+        # If statements for different units
+        if k == "Water":
+            print(k + ":", str(v) + "mL")
+        elif k == "Milk":
+           print(k + ":", str(v) + "mL")
+        elif k == "Coffee":
+            print(k + ":", str(v) + "g")
+        else:
+            print(k + ":", "$" + str("{:.2f}".format(v)))
+    print("\n")
 
 # Function to check if there are enough resources for a given drink
 def check_resources(input):
@@ -149,27 +150,52 @@ def input_valid(drink):
     else:
         return False
 
+# Function to process coins
+def process_coins(drink, q, d, n, p):
+    money = round((q * 0.25) + (d * 0.10) + (n * 0.05) + (p * 0.01), 2)
+    change = money - MENU[drink]["cost"]
+    if MENU[drink]["cost"] > money:
+        print("\nSorry, that is not enough money for your " + drink + ".")
+        print("Your change is $" + str(money) + ". Have a nice day.\n")
+        quit()
+    elif MENU[drink]["cost"] < money:
+        print("\nTransaction successful.")
+        print("Your change is $" + str(abs(round(change, 2))) + ". Have a nice day.\n")
+        resources["Money"] += MENU[drink]["cost"]
+    else:
+        print("\nTransaction successful. No change will be dispensed.\n")
+
+
 # Bool to terminate program
 machine_off = False
 
 # Prompt User
 while machine_off == False:
     # Get input
-    user_input = input("What would you like? (espresso/latte/cappuccino): ")
+    user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
 
     # Check input
     while input_valid(user_input) == False:
         print("Invalid Input. Try again.")
-        print("What would you like? (espresso/latte/cappuccino): ")
-        
+        user_input = input("What would you like? (espresso/latte/cappuccino): ")
 
-    # Print report upon request
-    if user_input == "report":
+    # Check if input is report
+    while user_input == 'report':
         print_report()
+        user_input = input("What would you like? (espresso/latte/cappuccino): ")
 
     # Check if resources are sufficient
     check_resources(user_input)
 
-    # Process Coins
-    # Prompt User
-    ("Your " + user_input + " costs ")
+    # Prompt user for coins
+    if user_input == 'espresso' or 'latte' or 'capuccino':
+        print("Your " + user_input + " costs $" + str(round(MENU[user_input]["cost"], 2)) + ".")
+
+    # Insert coins
+    q = int(input("Insert quarters into the machine: "))
+    d = int(input("Insert dimes into the machine: "))
+    n = int(input("Insert nickels into the machine: "))
+    p = int(input("Insert pennies into the machine: "))
+
+    # Process the coins to proceed
+    process_coins(user_input, q, d, n, p)
