@@ -1,5 +1,6 @@
 # Imports
 import os
+import time
 
 
 MENU = {
@@ -158,11 +159,11 @@ def process_coins(drink, q, d, n, p):
     change = money - MENU[drink]["cost"]
     if MENU[drink]["cost"] > money:
         print("\nSorry, that is not enough money for your " + drink + ".")
-        print("You only entered $" + str(money) + ". Thata is your change. Have a nice day.\n")
+        print("You only entered $" + str(money) + ". That is your change. Have a nice day.\n")
         quit()
     elif MENU[drink]["cost"] < money:
         print("\nTransaction successful.")
-        print("Your change from $" + str(money) + " is $" + str(round(change, 2)) + ". Have a nice day.\n")
+        print("Your change from $" + str(money) + " is $" + str(round(change, 2)) + ".\n")
         resources["Money"] += MENU[drink]["cost"]
     else:
         print("\nTransaction successful. No change will be dispensed.\n")
@@ -208,9 +209,27 @@ def insert_pennies():
 
 # Deduct resources from the machine
 def deduct_resources(drink):
+    # Subtracting resources in the machine based on drink ordered
     if drink == 'espresso':
-        resources["Water"] -= MENU[drink]["water"]
-        resources["Milk"] -= MENU[drink][""]
+        resources["Water"] -= MENU[drink]["ingredients"]["water"]
+        resources["Coffee"] -= MENU[drink]["ingredients"]["coffee"]
+    elif drink == 'latte':
+        resources["Water"] -= MENU[drink]["ingredients"]["water"]
+        resources["Milk"] -= MENU[drink]["ingredients"]["milk"]
+        resources["Coffee"] -= MENU[drink]["ingredients"]["coffee"]
+    else:
+        resources["Water"] -= MENU[drink]["ingredients"]["water"]
+        resources["Milk"] -= MENU[drink]["ingredients"]["milk"]
+        resources["Coffee"] -= MENU[drink]["ingredients"]["coffee"]
+
+    # Print statements for ux
+    print("Making coffee...")
+    time.sleep(1)
+    print("Making coffee...")
+    time.sleep(1)
+    print("Making coffee...")
+    time.sleep(1)    
+    print("\nHere is your " + drink + ". Enjoy!")
 
 # Bool to terminate program
 machine_off = False
@@ -218,7 +237,7 @@ machine_off = False
 # Prompt User
 while machine_off == False:
     # Get input
-    user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
+    user_input = input("\nWhat would you like? (espresso/latte/cappuccino): ").lower()
 
     # Check input
     while input_valid(user_input) == False:
@@ -254,5 +273,6 @@ while machine_off == False:
     # Process the coins to proceed
     process_coins(user_input, q, d, n, p)
 
-    # TODO Deduct coffee machine resources depending on drink of choice
+    # Deduct coffee machine resources depending on drink of choice
+    deduct_resources(user_input)
 
