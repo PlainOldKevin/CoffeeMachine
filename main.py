@@ -158,11 +158,11 @@ def process_coins(drink, q, d, n, p):
     change = money - MENU[drink]["cost"]
     if MENU[drink]["cost"] > money:
         print("\nSorry, that is not enough money for your " + drink + ".")
-        print("Your change is $" + str(money) + ". Have a nice day.\n")
+        print("You only entered $" + str(money) + ". Thata is your change. Have a nice day.\n")
         quit()
     elif MENU[drink]["cost"] < money:
         print("\nTransaction successful.")
-        print("Your change is $" + str(round(change, 2)) + ". Have a nice day.\n")
+        print("Your change from $" + str(money) + " is $" + str(round(change, 2)) + ". Have a nice day.\n")
         resources["Money"] += MENU[drink]["cost"]
     else:
         print("\nTransaction successful. No change will be dispensed.\n")
@@ -174,8 +174,6 @@ def refill():
     resources["Water"] == 500
     resources["Milk"] == 400
 
-# TODO finish this function for each coin
-
 # Function to insert quarters into machine
 def insert_quarters():
     quarters = int(input("Insert quarters into the machine: "))
@@ -184,7 +182,35 @@ def insert_quarters():
         quarters = int(input("Insert quarters into the machine: "))
     return quarters
 
+# Function to insert dimes into machine
+def insert_dimes():
+    dimes = int(input("Insert dimes into the machine: "))
+    while dimes <= 0 or not isinstance(dimes, int):
+        print("Invalid input. Try again.")
+        dimes = int(input("Insert dimes into the machine: "))
+    return dimes
 
+# Function to insert nickels into machine
+def insert_nickels():
+    nickels = int(input("Insert nickels into the machine: "))
+    while nickels <= 0 or not isinstance(nickels, int):
+        print("Invalid input. Try again.")
+        nickels = int(input("Insert nickels into the machine: "))
+    return nickels
+
+# Function to insert nickels into machine
+def insert_pennies():
+    pennies = int(input("Insert pennies into the machine: "))
+    while pennies <= 0 or not isinstance(pennies, int):
+        print("Invalid input. Try again.")
+        pennies = int(input("Insert pennies into the machine: "))
+    return pennies
+
+# Deduct resources from the machine
+def deduct_resources(drink):
+    if drink == 'espresso':
+        resources["Water"] -= MENU[drink]["water"]
+        resources["Milk"] -= MENU[drink][""]
 
 # Bool to terminate program
 machine_off = False
@@ -221,11 +247,12 @@ while machine_off == False:
 
     # Insert coins
     q = insert_quarters()
-    d = int(input("Insert dimes into the machine: "))
-    n = int(input("Insert nickels into the machine: "))
-    p = int(input("Insert pennies into the machine: "))
+    d = insert_dimes()
+    n = insert_nickels()
+    p = insert_pennies()
 
     # Process the coins to proceed
     process_coins(user_input, q, d, n, p)
 
     # TODO Deduct coffee machine resources depending on drink of choice
+
