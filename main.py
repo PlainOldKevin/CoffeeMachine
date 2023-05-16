@@ -160,7 +160,7 @@ def process_coins(drink, q, d, n, p):
     if MENU[drink]["cost"] > money:
         print("\nSorry, that is not enough money for your " + drink + ".")
         print("You only entered $" + str(money) + ". That is your change. Have a nice day.\n")
-        quit()
+        start()
     elif MENU[drink]["cost"] < money:
         print("\nTransaction successful.")
         print("Your change from $" + str(money) + " is $" + str(round(change, 2)) + ".\n")
@@ -231,48 +231,52 @@ def deduct_resources(drink):
     time.sleep(1)    
     print("\nHere is your " + drink + ". Enjoy!")
 
-# Bool to terminate program
-machine_off = False
 
-# Prompt User
-while machine_off == False:
-    # Get input
-    user_input = input("\nWhat would you like? (espresso/latte/cappuccino): ").lower()
+def start():
+    # Bool to terminate program
+    machine_off = False
 
-    # Check input
-    while input_valid(user_input) == False:
-        # Print report
-        if user_input == 'report':
-            print_report()
-            user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
-            input_valid(user_input)
-        # Refill machine
-        elif user_input == 'refill':
-            refill()
-            user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
-            input_valid(user_input)
-        # Bad input
-        else:
-            print("Invalid input. Try again.")
-            user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
-            input_valid(user_input)
+    # Prompt User
+    while machine_off == False:
+        # Get input
+        user_input = input("\nWhat would you like? (espresso/latte/cappuccino): ").lower()
 
-    # Check if resources are sufficient
-    check_resources(user_input)
+        # Check input
+        while input_valid(user_input) == False:
+            # Print report
+            if user_input == 'report':
+                print_report()
+                user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
+                input_valid(user_input)
+            # Refill machine
+            elif user_input == 'refill':
+                refill()
+                user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
+                input_valid(user_input)
+            # Bad input
+            else:
+                print("Invalid input. Try again.\n")
+                user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
+                input_valid(user_input)
 
-    # Prompt user for coins
-    if user_input == 'espresso' or 'latte' or 'cappuccino':
-        print("Your " + user_input + " costs $" + str("{:.2f}".format(MENU[user_input]["cost"])) + ".") 
+        # Check if resources are sufficient
+        check_resources(user_input)
 
-    # Insert coins
-    q = insert_quarters()
-    d = insert_dimes()
-    n = insert_nickels()
-    p = insert_pennies()
+        # Prompt user for coins
+        if user_input == 'espresso' or 'latte' or 'cappuccino':
+            print("Your " + user_input + " costs $" + str("{:.2f}".format(MENU[user_input]["cost"])) + ".") 
 
-    # Process the coins to proceed
-    process_coins(user_input, q, d, n, p)
+        # Insert coins
+        q = insert_quarters()
+        d = insert_dimes()
+        n = insert_nickels()
+        p = insert_pennies()
 
-    # Deduct coffee machine resources depending on drink of choice
-    deduct_resources(user_input)
+        # Process the coins to proceed
+        process_coins(user_input, q, d, n, p)
+
+        # Deduct coffee machine resources depending on drink of choice
+        deduct_resources(user_input)
+
+start()
 
