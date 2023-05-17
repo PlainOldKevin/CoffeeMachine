@@ -254,7 +254,7 @@ def deduct_resources(drink):
     print("\nHere is your " + drink + " ☕. Enjoy!")
     time.sleep(5)
 
-
+# Start machine
 def start():
     # Bool to terminate program
     machine_off = False
