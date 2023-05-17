@@ -193,14 +193,14 @@ def process_coins(drink, q, d, n, p):
 # Function to refill the machine's ingredients
 def refill():
     print("Ingredients filled to maximum capacity.")
-    resources["Coffee"] == 150
-    resources["Water"] == 500
-    resources["Milk"] == 400
+    resources["Coffee"] = 150
+    resources["Water"] = 500
+    resources["Milk"] = 400
 
 # Function to insert quarters into machine
 def insert_quarters():
     quarters = int(input("Insert quarters into the machine: "))
-    while quarters <= 0 or not isinstance(quarters, int):
+    while quarters < 0 or not isinstance(quarters, int):
         print("Invalid input. Try again.")
         quarters = int(input("Insert quarters into the machine: "))
     return quarters
@@ -208,7 +208,7 @@ def insert_quarters():
 # Function to insert dimes into machine
 def insert_dimes():
     dimes = int(input("Insert dimes into the machine: "))
-    while dimes <= 0 or not isinstance(dimes, int):
+    while dimes < 0 or not isinstance(dimes, int):
         print("Invalid input. Try again.")
         dimes = int(input("Insert dimes into the machine: "))
     return dimes
@@ -216,7 +216,7 @@ def insert_dimes():
 # Function to insert nickels into machine
 def insert_nickels():
     nickels = int(input("Insert nickels into the machine: "))
-    while nickels <= 0 or not isinstance(nickels, int):
+    while nickels < 0 or not isinstance(nickels, int):
         print("Invalid input. Try again.")
         nickels = int(input("Insert nickels into the machine: "))
     return nickels
@@ -224,7 +224,7 @@ def insert_nickels():
 # Function to insert nickels into machine
 def insert_pennies():
     pennies = int(input("Insert pennies into the machine: "))
-    while pennies <= 0 or not isinstance(pennies, int):
+    while pennies < 0 or not isinstance(pennies, int):
         print("Invalid input. Try again.")
         pennies = int(input("Insert pennies into the machine: "))
     return pennies
