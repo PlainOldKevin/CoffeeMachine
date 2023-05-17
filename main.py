@@ -230,6 +230,7 @@ def deduct_resources(drink):
     print("Making coffee...")
     time.sleep(1)    
     print("\nHere is your " + drink + " ☕. Enjoy!")
+    time.sleep(5)
 
 
 def start():
@@ -277,6 +278,9 @@ def start():
 
         # Deduct coffee machine resources depending on drink of choice
         deduct_resources(user_input)
+
+        # Clear console
+        os.system('cls' if os.name == 'nt' else 'clear')
 
 start()
 
