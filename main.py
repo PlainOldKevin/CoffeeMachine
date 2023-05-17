@@ -229,7 +229,7 @@ def deduct_resources(drink):
     time.sleep(1)
     print("Making coffee...")
     time.sleep(1)    
-    print("\nHere is your " + drink + ". Enjoy!")
+    print("\nHere is your " + drink + " ☕. Enjoy!")
 
 
 def start():
